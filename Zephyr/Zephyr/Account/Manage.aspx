@@ -57,6 +57,14 @@
                             There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                             for details on setting up this ASP.NET application to support two-factor authentication.
                         </p>
+                    </dd>
+                    <dt>Accounts</dt>
+                    <dd>
+                        <p>
+                            Click
+                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Account/ManageAccount">here</asp:HyperLink>
+&nbsp;to manage your accounts</p>
+                    </dd>
                         <% if (TwoFactorEnabled)
                           { %> 
                         <%--
@@ -71,7 +79,6 @@
                         <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
                         --%>
                         <% } %>
-                    </dd>
                 </dl>
             </div>
         </div>
