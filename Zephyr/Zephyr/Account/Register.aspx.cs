@@ -13,9 +13,11 @@ namespace Zephyr.Account
     {
         protected void CreateUser_Click(object sender, EventArgs e)
         {
+
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
             var user = new ApplicationUser() { UserName = Email.Text, Email = Email.Text };
+            string username = Email.Text;
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
             {
@@ -23,7 +25,8 @@ namespace Zephyr.Account
                 //string code = manager.GenerateEmailConfirmationToken(user.Id);
                 //string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);
                 //manager.SendEmail(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.");
-
+                Classes.SQLLoader.InitializeAdminStatus(Email.Text);
+                username = (string)Session["UserID"];
                 signInManager.SignIn( user, isPersistent: false, rememberBrowser: false);
                 IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
             }
@@ -31,6 +34,13 @@ namespace Zephyr.Account
             {
                 ErrorMessage.Text = result.Errors.FirstOrDefault();
             }
+            
         }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
