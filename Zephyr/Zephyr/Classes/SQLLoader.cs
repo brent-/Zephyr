@@ -88,8 +88,93 @@ namespace Zephyr.Classes
                 dbConnection.Close();
                 return null;
             }
+        }
 
+        public static DataTable ShowUsers()
+        {
+            DataTable dt = new DataTable();
+            string setStatus = "select UserName, Email, IsAdmin, LockoutEnabled, LockoutEndDateUtc, Id from dbo.AspNetUsers with (nolock)";
+            string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            SqlConnection dbConnection = new SqlConnection(connStr);
+            SqlCommand dbCommand = new SqlCommand(setStatus, dbConnection);
+            dbCommand.CommandText = setStatus;
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(dbCommand);
+                da.Fill(dt);
+                dbConnection.Close();
+                return dt;
+            }
+            catch (Exception e)
+            {
+                dbConnection.Close();
+                return null;
+            }
+        }
+        public static void AdminActions_MakeAdmin(string userid)
+        {
+            string setStatus = "update dbo.AspNetUsers set IsAdmin = 1 where id = @userid";
+            string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            SqlConnection dbConnection = new SqlConnection(connStr);
+            SqlCommand dbCommand = new SqlCommand(setStatus, dbConnection);
 
+            dbCommand.CommandText = setStatus;
+            dbCommand.Parameters.AddWithValue("@userid", userid);
+
+            try
+            {
+                dbConnection.Open();
+                dbCommand.ExecuteNonQuery();
+                dbConnection.Close();
+            }
+            catch (SqlException e)
+            {
+                dbConnection.Close();
+            }
+        }
+
+        public static void AdminActions_DeleteUser(string userid)
+        {
+            string setStatus = "delete from dbo.AspNetUsers where IsAdmin = 0 and id = @userid";
+            string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            SqlConnection dbConnection = new SqlConnection(connStr);
+            SqlCommand dbCommand = new SqlCommand(setStatus, dbConnection);
+
+            dbCommand.CommandText = setStatus;
+            dbCommand.Parameters.AddWithValue("@userid", userid);
+
+            try
+            {
+                dbConnection.Open();
+                dbCommand.ExecuteNonQuery();
+                dbConnection.Close();
+            }
+            catch (SqlException e)
+            {
+                dbConnection.Close();
+            }
+        }
+
+        public static DataTable GetAdminStatus()
+        {
+            DataTable dt = new DataTable();
+            string setStatus = "select IsAdmin dbo.AspNetUsers with (nolock)";
+            string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            SqlConnection dbConnection = new SqlConnection(connStr);
+            SqlCommand dbCommand = new SqlCommand(setStatus, dbConnection);
+            dbCommand.CommandText = setStatus;
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(dbCommand);
+                da.Fill(dt);
+                dbConnection.Close();
+                return dt;
+            }
+            catch (Exception e)
+            {
+                dbConnection.Close();
+                return null;
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using Zephyr.Models;
+using System.Data;
 
 namespace Zephyr.Account
 {
@@ -35,6 +36,20 @@ namespace Zephyr.Account
 
         protected void Page_Load()
         {
+            DataTable admin;
+            string adminbit;
+            admin = Classes.SQLLoader.GetAdminStatus();
+            adminbit = admin.Rows[0].ItemArray[0].ToString();
+
+            if (adminbit == "False")
+            {
+                admin_panel.Visible = false;
+            }
+            else
+            {
+                admin_panel.Visible = true;
+            }
+
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
             HasPhoneNumber = String.IsNullOrEmpty(manager.GetPhoneNumber(User.Identity.GetUserId()));
@@ -124,5 +139,7 @@ namespace Zephyr.Account
 
             Response.Redirect("/Account/Manage");
         }
+
+        
     }
 }

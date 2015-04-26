@@ -3,7 +3,23 @@
 <%@ Register Src="~/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %>.</h2>
+    <h2><%--
+                    <dt>Phone Number:</dt>
+                    <% if (HasPhoneNumber)
+                       { %>
+                    <dd>
+                        <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Add]" />
+                    </dd>
+                    <% }
+                       else
+                       { %>
+                    <dd>
+                        <asp:Label Text="" ID="PhoneNumber" runat="server" />
+                        <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Change]" /> &nbsp;|&nbsp;
+                        <asp:LinkButton Text="[Remove]" OnClick="RemovePhone_Click" runat="server" />
+                    </dd>
+                    <% } %>
+                    --%>.</h2>
 
     <div>
         <asp:PlaceHolder runat="server" ID="successMessage" Visible="false" ViewStateMode="Disabled">
@@ -23,33 +39,19 @@
                         <asp:HyperLink NavigateUrl="/Account/ManagePassword" Text="[Create]" Visible="false" ID="CreatePassword" runat="server" />
                     </dd>
                     <dt>External Logins:</dt>
-                    <dd><%: LoginsCount %>
+                    <dd><%--
+                        Enabled
+                        <asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />
+                        --%>
                         <asp:HyperLink NavigateUrl="/Account/ManageLogins" Text="[Manage]" runat="server" />
 
                     </dd>
-                    <%--
-                        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-                        See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-                        Uncomment the following blocks after you have set up two-factor authentication
-                    --%>
-                    <%--
-                    <dt>Phone Number:</dt>
-                    <% if (HasPhoneNumber)
-                       { %>
-                    <dd>
-                        <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Add]" />
-                    </dd>
-                    <% }
-                       else
-                       { %>
-                    <dd>
-                        <asp:Label Text="" ID="PhoneNumber" runat="server" />
-                        <asp:HyperLink NavigateUrl="/Account/AddPhoneNumber" runat="server" Text="[Change]" /> &nbsp;|&nbsp;
-                        <asp:LinkButton Text="[Remove]" OnClick="RemovePhone_Click" runat="server" />
-                    </dd>
-                    <% } %>
-                    --%>
+                        <% }
+                          else
+                          { %><%--
+                        Disabled
+                        <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
+                        --%>
 
                     
                     <dt>Accounts</dt>
@@ -58,22 +60,25 @@
                             Click
                             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Account/ManageAccount.aspx">here</asp:HyperLink>
 &nbsp;to manage your accounts</p>
+                </dl>
+                <asp:Panel ID="admin_panel" runat="server">
+                    <dl class="dl-horizontal">
+                        <dt>Administrator</dt>
+                        <dd>Click
+                            <asp:HyperLink ID="adminpage_redirect" runat="server" NavigateUrl="AdminPage.aspx">here</asp:HyperLink>
+                            &nbsp;to go to the admin page</dd>
+                    </dl>
+                </asp:Panel>
                     </dd>
-                        <% if (TwoFactorEnabled)
-                          { %> 
-                        <%--
-                        Enabled
-                        <asp:LinkButton Text="[Disable]" runat="server" CommandArgument="false" OnClick="TwoFactorDisable_Click" />
-                        --%>
-                        <% }
-                          else
-                          { %> 
+                        <% } %>                        <%--
+                        Disabled
+                        <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
+                        --%>                        <% } %> 
                         <%--
                         Disabled
                         <asp:LinkButton Text="[Enable]" CommandArgument="true" OnClick="TwoFactorEnable_Click" runat="server" />
                         --%>
                         <% } %>
-                </dl>
             </div>
         </div>
     </div>
