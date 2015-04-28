@@ -43,13 +43,15 @@ namespace Zephyr.Account
 
         protected void ViewAccounts_Click(object sender, EventArgs e)
         {
+            CreateAccounts.Visible = true;
             panel_add_account.Visible = false;
+            gridview_accounts.Visible = true;
             DataTable dt;
             string username = HttpContext.Current.User.Identity.Name;
             dt = Classes.SQLLoader.ShowAccounts(username);
             gridview_accounts.DataSource = dt;
             gridview_accounts.DataBind();
-            gridview_accounts.Visible = true;
+            
 
         }
 

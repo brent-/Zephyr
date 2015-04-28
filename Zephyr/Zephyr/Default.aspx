@@ -7,8 +7,8 @@
         <p> Login or register to begin! </p>
         <%--<p><a href="Accounts/Login.aspx" class="btn btn-primary btn-lg">Login &raquo;</a> <a href="Accounts/Register.aspx" class="btn btn-primary btn-lg">Register &raquo;</a></p>--%>
         <p>
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Register" />
-&nbsp;<asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Login" />
+            <%--<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Register" />--%>
+&nbsp;<%--<asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Login" />--%>
         </p>
         <p>Or click the button below to learn more about asp.net!</p>
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a> </p>
