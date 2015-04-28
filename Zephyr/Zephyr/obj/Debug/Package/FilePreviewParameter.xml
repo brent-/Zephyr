@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="Zephyr01" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Git\\Zephyr\\Zephyr\\Zephyr\\obj\\Debug\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Git\\Zephyr\\Zephyr\\Zephyr\\obj\\Debug\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=tcp:zephyr.database.windows.net,1433;Initial Catalog=Zephyr01_db;User Id=brent@zephyr;Password=5ofHearts" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Git\\Zephyr\\Zephyr\\Zephyr\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

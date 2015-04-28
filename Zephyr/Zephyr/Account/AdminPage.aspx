@@ -10,6 +10,9 @@
                 <h4>Web admin tools listed below</h4>
                 <hr />
 
+                <asp:Label ID="lbl_admin" runat="server" Text="Label"></asp:Label>
+                <br />
+
             </div>
         </div>
     </div>
@@ -30,7 +33,7 @@
         <asp:ListItem>Give Admin Rights</asp:ListItem>
     </asp:DropDownList>
 &nbsp;&nbsp;
-    <asp:TextBox ID="txt_userid" runat="server" TextMode="Number"></asp:TextBox>
+    <asp:TextBox ID="txt_userid" runat="server"></asp:TextBox>
     <asp:RequiredFieldValidator runat="server" ControlToValidate="txt_userid" CssClass="text-danger" ErrorMessage="UserID is required" />
     <br />
     <asp:Button ID="Exec_AdminActions" runat="server" OnClick="Exec_AdminActions_Click" Text="Go!" />
@@ -38,6 +41,8 @@
     <asp:GridView ID="gridview_users" runat="server" BackColor="#33CC33" BorderColor="#000066">
 
     </asp:GridView>
+
+    <br />
 
     <br />
 

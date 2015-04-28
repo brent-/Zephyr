@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Zephyr.Account
 {
@@ -12,10 +14,11 @@ namespace Zephyr.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             DataTable admin;
             string adminbit;
 
-            admin = Classes.SQLLoader.GetAdminStatus();
+            admin = Classes.SQLLoader.First_GetAdminStatus(HttpContext.Current.User.Identity.GetUserName());
             adminbit = admin.Rows[0].ItemArray[0].ToString();
 
             if (adminbit == "False")
@@ -60,15 +63,37 @@ namespace Zephyr.Account
 
         protected void Exec_AdminActions_Click(object sender, EventArgs e)
         {
+            DataTable adminbit;
+            string adminstatus;
+
+            adminbit = Classes.SQLLoader.Second_GetAdminStatus(txt_userid.Text);
+            adminstatus =adminbit.Rows[0].ItemArray[0].ToString();
             string decision = ddl_adminAction.SelectedItem.ToString();
 
             if (decision == "Delete")
             {
-                Classes.SQLLoader.AdminActions_DeleteUser(txt_userid.Text);
+                if (adminstatus == "False")
+                {
+                    Classes.SQLLoader.AdminActions_DeleteUser(txt_userid.Text);
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Success')</script>");
+                }
+                else
+                {
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Admins can not kick admins')</script>");
+                }
             }
             else if (decision == "Give Admin Rights")
-            {                
-                Classes.SQLLoader.AdminActions_MakeAdmin(txt_userid.Text);
+            {
+                if (adminstatus == "False")
+                {
+                    Classes.SQLLoader.AdminActions_MakeAdmin(txt_userid.Text);
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Success')</script>");
+                }
+                else
+                {
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('This user is alredy an admin')</script>");
+                }
+                
             }
         }
     }

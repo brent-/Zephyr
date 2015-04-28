@@ -47,23 +47,23 @@ namespace Zephyr
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            app.UseMicrosoftAccountAuthentication(
+                clientId: "0000000048154882",
+                clientSecret: "HbpFS5V9AfasCNkw0wrrf3gjbTedZmgJ");
 
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "827968703907026",
+               appSecret: "d108bb575b54031443e99d7bbf776ccf");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "608772617543-ljvul0nbdqc14fd82b6ohs5el7f012d6.apps.googleusercontent.com",
+                ClientSecret = "I8FcZtthARypfZ4CYo71TkGz"
+            });
         }
     }
 }

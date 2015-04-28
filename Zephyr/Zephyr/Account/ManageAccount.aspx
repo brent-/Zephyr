@@ -14,13 +14,13 @@
                     <dd>
                         <asp:Button  Text="Accounts" Visible="true" ID="ViewAccounts" runat="server" OnClick="ViewAccounts_Click" />
                     </dd>
-                    <dd>
-                    </dd>
+                    <dt></dt>
+                    <dt></dt>
                     <dd>
                         <asp:Button  Text="Create Accounts" Visible="true" ID="CreateAccounts" runat="server" OnClick="CreateAccounts_Click" />
                     </dd>
                     <dd>
-                        <dd>
+                    <dd>
                         </dl>
                 <p>
                     <asp:GridView ID="gridview_accounts" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">

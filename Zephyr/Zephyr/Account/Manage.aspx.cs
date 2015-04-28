@@ -34,11 +34,12 @@ namespace Zephyr.Account
 
         public int LoginsCount { get; set; }
 
-        protected void Page_Load()
+        public void Page_Load()
         {
             DataTable admin;
             string adminbit;
-            admin = Classes.SQLLoader.GetAdminStatus();
+            string username = HttpContext.Current.User.Identity.GetUserName();
+            admin = Classes.SQLLoader.First_GetAdminStatus(username);
             adminbit = admin.Rows[0].ItemArray[0].ToString();
 
             if (adminbit == "False")
@@ -49,6 +50,7 @@ namespace Zephyr.Account
             {
                 admin_panel.Visible = true;
             }
+            
 
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
@@ -140,6 +142,6 @@ namespace Zephyr.Account
             Response.Redirect("/Account/Manage");
         }
 
-        
+
     }
 }

@@ -93,7 +93,7 @@ namespace Zephyr.Classes
         public static DataTable ShowUsers()
         {
             DataTable dt = new DataTable();
-            string setStatus = "select UserName, Email, IsAdmin, LockoutEnabled, LockoutEndDateUtc, Id from dbo.AspNetUsers with (nolock)";
+            string setStatus = "select UserName, Email, IsAdmin, LockoutEnabled, LockoutEndDateUtc, Id, IsAdmin from dbo.AspNetUsers with (nolock)";
             string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             SqlConnection dbConnection = new SqlConnection(connStr);
             SqlCommand dbCommand = new SqlCommand(setStatus, dbConnection);
@@ -155,10 +155,10 @@ namespace Zephyr.Classes
             }
         }
 
-        public static DataTable GetAdminStatus()
+        public static DataTable First_GetAdminStatus(string username)
         {
             DataTable dt = new DataTable();
-            string setStatus = "select IsAdmin dbo.AspNetUsers with (nolock)";
+            string setStatus = "select IsAdmin from dbo.AspNetUsers with (nolock) where username = '" + username +"'";
             string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             SqlConnection dbConnection = new SqlConnection(connStr);
             SqlCommand dbCommand = new SqlCommand(setStatus, dbConnection);
@@ -171,6 +171,30 @@ namespace Zephyr.Classes
                 return dt;
             }
             catch (Exception e)
+            {
+                dbConnection.Close();
+                return null;
+            }
+        }
+
+        public static DataTable Second_GetAdminStatus(string userid)
+        {
+            DataTable dt = new DataTable();
+            string setStatus = "select IsAdmin from dbo.AspNetUsers with (nolock) where id  = @id";
+            string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            SqlConnection dbConnection = new SqlConnection(connStr);
+            SqlCommand dbCommand = new SqlCommand(setStatus, dbConnection);
+
+            dbCommand.CommandText = setStatus;
+            dbCommand.Parameters.AddWithValue("@id", userid);
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(dbCommand);
+                da.Fill(dt);
+                dbConnection.Close();
+                return dt;
+            }
+            catch (SqlException e)
             {
                 dbConnection.Close();
                 return null;
