@@ -68,7 +68,7 @@ namespace Zephyr.Classes
         public static DataTable ShowAccounts(string username)
         {
             DataTable dt = new DataTable();
-            string setStatus = "select AccountName, Balance from dbo.AspNetUserAccounts with (nolock) where username=@username";
+            string setStatus = "select AccountName, Balance from dbo.AspNetUserAccounts with (nolock) where username = @username";
             string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             SqlConnection dbConnection = new SqlConnection(connStr);
             SqlCommand dbCommand = new SqlCommand(setStatus, dbConnection);
